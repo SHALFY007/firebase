@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 // import * as firebase from 'firebase/app';
 import {getAuth} from  "firebase/auth"
 import {Firestore} from "firebase/firestore"
+import { getFirestore } from "firebase/firestore";
+
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
@@ -44,6 +46,8 @@ const firebaseConfig:config = {
 export const app:any = initializeApp(firebaseConfig);
 
 export const Context = createContext<any|null>(null)
+
+export const db:any = getFirestore(app)
 
 // const auth = firebase.auth();
 // const firestore = firebase.firestore();

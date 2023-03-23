@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { Route, Routes, redirect, Navigate } from "react-router-dom";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Route, Routes, Navigate } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "./routes";
 import { CHAT_ROUTE, LOGIN_ROUTE } from "./utils/consts";
 import {useAuthState} from 'react-firebase-hooks/auth'
@@ -8,13 +9,9 @@ import { getAuth} from "firebase/auth"
 
 
 function AppRouter() {
-
-    // const navigate = useNavigate();
     const auth = getAuth();
 
     const [user]:any = useAuthState(auth)
-
-    user ? redirect(CHAT_ROUTE) : redirect(LOGIN_ROUTE)
 
     return user ? 
     (
@@ -23,17 +20,27 @@ function AppRouter() {
                 <Route path={path} element={<Component/>} key={path}/>
             )}
             
-            {/* <Navigate to={CHAT_ROUTE}/> */}
         </Routes>
     ) : (
         <Routes>
         {publicRoutes.map(({path, Component}) => 
             <Route path={path} element={<Component/>} key={path}/>
         )}
-
-        {/* <Navigate to={LOGIN_ROUTE}/> */}
         </Routes>
     )
+    // return (
+    //     <Routes>
+    //        {user ?
+    //          privateRoutes.map(({path, Component}) => 
+    //             <Route path={path} element={<Component/>} key={path}/>
+                
+    //         ) :         
+    //         publicRoutes.map(({path, Component}) => 
+    //         <Route path={path} element={<Component/>} key={path}/>
+    //         )
+    //         }
+    //     </Routes>
+    // )
 
 }
 export default AppRouter
